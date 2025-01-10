@@ -1,0 +1,238 @@
+ctrl + ,         // setting
+
+CREATE A REACT APP WITH VITE
+
+npm create vite@latest my-react-app
+cd my-react-app
+npm install        // install dependencies 
+code .
+npm run dev
+
+CREATE REACT APP 
+
+npx create-react-app my-react-app    // here dependecies are automatically installed 
+cd my-react-app 
+npm start                // start the development server 
+
+
+remove public,app.css,index.css,assets, index.css and <strictmode> in main.jsx
+
+
+npm install react-icons --save  // install icons
+
+onCopy    // run the function when you copy something
+onMouseMove   // when move the mouse
+
+friends.filter((f)=> f!== 'sri')   // remove a element from array
+[...friends,"imashika"]     // add a elemet to the array
+friends.map( (f)=> 'smith'? "sam smith": f)  // update a element in a array
+
+const removetodo=(id)=>{
+        setTodos((todo)=>{
+            return todo.filter((t)=> t.id!==id);   //remove a element from an array
+        })
+    }
+
+
+{()=>{setTodos((todos)=>{
+            setInput("");
+             return todos.concat({                  // add a new element to the array or merge two arrays
+                text : input,
+                id: Math.floor(Math.random()*10)
+            })
+        })}
+
+
+<card>                           // parent component
+  <h1> children componemt</h1>   // pass the children component, pass the childrens to card componemt
+</card>
+
+
+{{ }} in styles
+
+
+eval(inputvalue);    // calculate and return the result of a mathamtical expression given as strings
+
+
+localStorage.getItem("name")  // getting one item from our local localStorage
+JSON.parse("savedname")  // turn into an string
+
+
+    const handlechange=(event)=>{
+      setName(event.target.value);
+    }
+ <input type="text" value={name} onChange={(e)=>{setInputvalue(e.target.value)} placeholder="enter your name"/>
+
+
+  useEffect(()=>{
+      localStorage.setItem('name',JSON.stringify(name));   // convert a object or value into a string
+       Document.title = " incremented";
+    },[name,age]);       //dependency array
+    
+
+  inputvalue.trim()           // remove spaces
+
+ e.preventDefault();
+
+ <label htmlFor="name"><input type="text" value={state}  id ="name"></label>
+
+
+parseInt("string");
+
+
+navigator.clipboard.writeText(inputvalue).then(()=>{    //writes the content of inputValue to the system clipboard.
+  setcopied(true);                                      // set true the usestate
+  setTimeout(()=>setCopied(false),2000);                // Resets the copied state to false after 2 seconds
+})
+
+
+import { createPortal } from 'react-dom'
+function popupcontent() {
+  return createPortal (                    //createPortal(child,container)
+    <div>popupcontent</div>,            
+    document.querySelector("#id")      //import content to another part of the dom other than the root dev index.html
+  )
+}
+
+
+    useEffect(()=>{
+        async function getdata(){
+            const response = await fetch("url");     //fetch the data
+            const data = await response.json();
+            if(data && data.length)  setData(data);
+        }
+    },[])
+
+
+CONTEXT API TO PASS DATA TO MULTIPLE COMPONENTS
+
+import { createContext} from "react";
+export const data = createContext()     // create the context api to pass the data
+export const data1 = createContext();
+const myname = "dulan"
+const myage = 21
+return(
+   <div>
+           <data.provider value={name}>            // pass the data other component
+              <data1.provider value={myage}>
+              <Contentapi/>
+              </data1.provider>
+            </data.provider>
+          </div>
+)
+export {data,data1}; 
+
+
+
+
+import { data, data1 } from '../App'
+import { useContext } from 'react'
+ const username= useContext(data);
+  const userage = useContext(data1);
+  return (
+    <div>
+      <h1> my name is {username} and i am {userage} years old </h1>
+    </div>
+  )
+
+
+USEREDUCER
+
+const initialstate= {count : 0}
+const reducer=(state,action)=>{
+    switch(action.type){
+        case "increment":
+            return {...count,count: state.count + 1};
+        case "decrement" : 
+            return {...count,count: state.count - 1};
+        case "reset":
+            return {...count,count : 0};
+        default: 
+            return state;
+    }}
+
+ const[state,dispatch] = useReducer(reducer,initialstate);
+  return (
+    <div>
+        <button onClick={()=> dispatch("increment")}>+</button>
+        <button onClick={()=> dispatch("decrement")}>-</button>
+        <button onClick={()=> dispatch("reset")}>reset</button>
+
+        <h1> count : {state.count}</h1>
+    </div> )
+
+
+
+USEREF
+
+const inputelement = useRef(null);
+function focusinput(){
+    inputelement.current.focus();
+    inputelement.current.write = "dulan";
+}
+
+ <input type='text' ref={inputelement}/>
+ <button onClick={focusinput}>focus and write dulan</button>
+ 
+
+
+const [count,setCount]=useState(0);
+    const intervalref = useRef(null);     // referernce to stop the interval runnig
+    useEffect(()=>{
+        intervalref.current = setInterval(()=>{    //set the current value in every second
+            setCount(count+1);
+        },1000)
+
+        return()=>{
+            clearInterval(intervalref.current);   // stop the interval 
+        }
+    },[])
+    return(
+        <div>
+            <h1> timer : {count}</h1>
+            <button onClick={()=>{clearInterval(intervalref.current)}}> stop timer</button>
+        </div>
+    )
+
+
+FETCH DATA 
+
+const Usefetch = (url) => {
+    const [data,setData] = useState(null);
+    useEffect(()=>{
+        fetch("url")
+        .then(res=> res.json())
+        .then(data => setData(data))
+    },[])
+  return [data]
+}
+const [data] = Usefetch("https://jsonplaceholder.typicode.com/todos");
+
+
+
+USEID
+  const id = useId();             //generate unique ids for elements in the applicaion
+  return (
+    <div>
+        <label htmlFor={`${id}-email`}>Email : </label>
+        <input type='email' id={`${id}-email`}/><br></br>
+        <label htmlFor={`${id}-password`}>PAssword : </label>
+        <input type='password' id={`${id}-password`}/>
+    </div>
+  )
+
+
+AXIOS
+
+axios.get("https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood")
+      .then((res) => {
+        console.log(res.data.Meals);
+        setItems(res.data.Meals);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+
+const index = array.indexOf("banana") //return -1 if element is not found in the array 
+.toLocaleLowerCase();  // convert  a stringto lowercase based on the specific locale, making it better for internationnalized applications
