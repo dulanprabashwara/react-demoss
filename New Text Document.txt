@@ -1,4 +1,5 @@
-ctrl + ,         // setting
+ ctrl + ,         // setting
+&nbsp;           // space in a html element
 
 CREATE A REACT APP WITH VITE
 
@@ -19,6 +20,9 @@ remove public,app.css,index.css,assets, index.css and <strictmode> in main.jsx
 
 
 npm install react-icons --save  // install icons
+
+npm create vite@latest tailwindcss4 -- --template react // install tailwind css with vite, tailwindcss4 is the project name, have to add @import "tailwindcss"; to the index.js file
+
 
 onCopy    // run the function when you copy something
 onMouseMove   // when move the mouse
@@ -236,3 +240,317 @@ axios.get("https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood")
 
 const index = array.indexOf("banana") //return -1 if element is not found in the array 
 .toLocaleLowerCase();  // convert  a stringto lowercase based on the specific locale, making it better for internationnalized applications
+
+
+
+ let promise = new promise( function (resolve,reject){
+	//resolve("water");
+	//reject("no water ");
+	setTimeout(function(){
+		reject(new Error("wathuwa ne "));
+	},3000)
+})
+
+const grandparentcooking=()={
+	promise.then((result)=>{                          // if resolve
+		console.log("cooking with" + result);
+	},
+	//(error)=>{                                      // if reject
+	//	console.log(error + "sorry achchi");}
+	) 
+	
+	promise.catch(function (error){                 //if reject
+		console.log(errror.message);
+	})
+
+	promise.finally(function(){                    //after then or catch
+		console.log( "eating"); 
+	})
+}
+grandparentcooking();
+
+
+new promise((resolve,reject)=>{
+	resolve("this is a promise")
+	}).then(resolve=> console.log(resolve))
+	  .catch(error => console.log(error))
+
+
+class welcome extends React.component{        // in welcome.js
+	constructor(props){
+		super(props)
+		this.state = {
+			message : "react",            //instead of using usestate in functional components
+			emoji 	: "😊"               // whindows + ;
+
+		}
+	}
+
+render(){
+	return(
+		<h1> hi{ this.state.message} </h1>
+		)
+}
+
+
+sass
+npm install node-sass
+
+
+styled components
+npm install --save styled-components
+
+materialui 
+
+import styled from 'styled-components';
+const Div = styled.div`			//Div use as the component. not div
+	background: transparent; `
+
+const Div = styled(div)`		//extend the previous one
+	background: transparent;
+	color	: red;
+	&:hover{
+		background-color: red;} `
+
+
+npm install react-bootstrap bootstrap
+
+
+<React.Fragment>           // to reduce wraping div when render a component,when mapping usig fragment
+	<h1> hi </h1>
+</React.Fragment>
+
+npm init vite   // react with vite
+npm install
+
+strictmode      // show console two times, show errors 
+
+jsonplaceholder     // for data fetching
+
+
+axios        //promise based 3rd psrty library,support the promise api , also support the feature to cancel requests and automatically transform json data,no need to give the method and no need to convevert into json data
+
+import axios from 'axios';
+useEffect(()=>{
+axios.get("jsonplaceholder")            // get one or multiple data
+	.then((res)=>{
+		setPost(res.data);
+	})
+	.catch((err)=> setError(err.message))
+},[])
+
+
+const handlesubmit=(event)=>{
+	event.preventDefault();
+	axios.post("jsonplaceholder",post)   //post is the data we are going to send, one or more json data 
+	.then((res)=>{
+		if(res.status===201){             // status code is always 201 when post
+			alert(" succefully sent"); 
+		}
+	})
+	.catch((err)=> setError(err.message))
+}
+
+
+const handlesubmit=(event)=>{
+	event.preventDefault();
+	axios.put("jsonplaceholder/1",post)   //put is to update the a one single data or add  new data  
+	.then((res)=>{				// shold send all the  data items, in patch we can send a particular part of a data to update it 
+		alert(" succefully sent");
+	})
+	.catch((err)=> setError(err.message))
+}
+
+const ondeleteAction =(event)=>{
+	axios.delete("jsonplaceholder/1")   // delete a data
+	.then((res)=>{
+		console.log(res);
+	})
+	.catch((err)=> setError(err.message))
+}
+
+
+
+NAVIGATION 
+
+npm install react-router-dom@6
+
+import {BrowserRouter} from 'react-router-dom';  //in index.js or main.js
+<BrowserRouter>   //instead of strictmode 
+	<App/>
+<BrowserRouter/>
+
+
+import {routes,route} from 'react-router-dom';   //app.jsx
+<div>
+<h1>welcome to router</h1>
+<Routes>
+	<Route path="/" element={<Home/>}>
+	<Route path="about/*" element={<About/>}>             // if input anything after / it gives the same about 
+	<Route path="contact/contactid" element={<Contact/>}>
+</Routes>
+</div>
+
+
+import {Link} from "react-router-dom";                           //contact.jsx
+import {useParams} from "react-router-dom"; 
+let params = useParams();                       //inside the function
+let contact = fetch(`url/&{params.contactid}`);           //use to fetch the data 
+<div>                                 
+	<main>
+		<h2>welcome<h2/>
+		<h2> {contact.customername} <h2/>
+		<h2> contact - {params.contactid} <h2/>
+	</main>
+	<nav>
+		<Link to="/">Home</Link>
+		<Link to="contact">contact</Link>
+		<Link to="about">about</Link>
+	</nav>
+<div/>
+
+
+redux      //state management, global state on the app container ,pass pieces of the state down to children
+
+
+relational database - SQL - mysql software - use tables to store data - have to know sql language to use
+non-relational database - NO-SQL -mongodb software - use documents to store data  - store as json data
+
+
+MONGODB
+
+mongosh
+show dbs  - show databases , a database has collections
+use testing 
+use day16
+show dbs  
+db.currentdb    //day16.currentdb
+use testing
+db.currentdb    //testing.currentd
+use day16
+db.users.insertOne({name: "dulan", age: 21})   //create users collection and insert a json data
+db.users.find()   //show the users collection's data
+show dbs          // should have a collection to show the database
+ db.users.insertOne({name: "nimal", age: 21,address:{street:"temple road",no:23,city:"bandarawela"}})  
+db.users.insertMany([{name: "sri", age: 26},{name: "prabashwara", age: 23}])                //insert multiple objects 
+db.users.find()
+db.users.find().limit(2)   //give the first two
+db.users.find().sort({name:1})  //sort by name A-Z
+db.users.find().sort({age:1})    // sort by age assending
+db.users.find().sort({age:-1})    // sort by age decending
+db.users.find().sort({age:1,name:-1})    //consider the name when ages are equal
+db.users.find({name: "kamal"}) 
+db.users.find({age: {$gt:20}})   //age is greater than 20 
+db.users.find({age: {$ls:20}})  
+db.users.find({name: {$ne: "kamal"}})   //name is not equal kamal
+db.users.find({name: {$in: ["kamal","sugath"]}})    // if kamal and sugath are in users it will show
+db.users.find({name: {$nin: ["kamal","sugath"]}})     //// if kamal and sugath are not in users it will show   
+db.users.find({age: {$exists:true}})   //show the collections that have age
+db.users.find({age: {$exists:false}})   //show the collections that don't have age
+db.users.find({$or:[{name:"kamal"},{age:30}]})   // show the collections that have name kamal and age 30
+db.users.find( {$nor:[{name:"kamal"},{age:30}]})   // show the collections that not have name kamal and age 30
+db.users.find({age: { $not : {$gt:20}}})                 // show the collections are that not greater than 20
+ db.getCollectionNames()                                // show all the collection names in the database
+db.login.insertOne({login:true})            //create a new collection in the database
+db.users.updateOne({age: 15},{$set: {age:20}})      //update the first collection that has 30 age
+db.users.updateMany({age: 15},{$set: {age:20}})     //update all the collections that has 30 age
+db.users.findOne()                                 //give the first collection
+db.users.find({age:30})      // show the collection that has age 30  
+db.users.findOne({age:30})   //show the first collection that age is 30
+db.users.updateOne({age: 60},{$inc: {age:2}})    //increment the age by 2 which has the age 60
+ db.users.updateOne({age: 60},{$inc: {age:-2}})    //decrement the age by 2 which has the age 60       
+db.users.updateOne({address: {street: "mainstreet",city:"matara"}},{$set: {address:"colombo"}})       //update the address in the first collection
+   db.users.updateOne({name:"nimal"},{$rename: {name:"firstname"}})     //rename the name key to firstname, not the value
+db.users.updateOne({name:"saman"},{$unset : {address : ""}})             //remove the address where name is saman
+db.users.insertOne({name:"lal",age: 20,pets : ["cat","dog","duck"]})    //insert a new collection
+db.users.updateOne({name:"lal"},{$push : {pets : "rabbit"}})     //push a new element to the pets array
+db.users.updateOne({name:"lal"},{$pull : {pets : "rabbit"}})     //pull a new element to the pets array         
+db.users.updateOne({_id: objectId("34534533f3t33ft3")},{$push: {pets:"dog"}})
+db.users.deleteOne({name: "kamal"})     //delete a collection
+db.users.deleteMany({age :  42})        //delete all the collections that the age is 42
+db.users.countDocument({name: "dulan"})    //give how many collections are there which the name is dulan    
+db.users.countDocument({age : {$gt :20 }})   //give how many collections are there which the age is greater than 20
+db.users.replaceOne({name : "kusum"},{address: "galle" })     //replace the collection that  name is kusum with the second object
+db..users.find().skip(2)                                     //skip two collections and show others
+db.dropDatabase()                                          //delete the database
+db.getCollectionNames()                           //show the collections in the database
+
+
+HTTP STATUS CODES
+1XX - information     //informations that from the server 
+2xx - success           // when succefully sent from the server
+3xx - redirection       // re directed the data to the server 
+4xx - client error      // page not found  
+5xx - server error      // 
+
+http - hyper text transfer protocol
+https - hyper text transfer protocol secure
+ip adress - to idintify a unique computer
+port   - services are running in ports to receive and send data
+
+web browser <-> api <-> server <-> database
+
+
+EXPRESS   //backend framework. to create api
+
+ npm init            //package.json
+ npm i express 
+                                          //in index.js
+const express = require('express');     //call express
+const app= express()                     //create express app
+const port = 5000                          //create a port for service requests
+
+app.get('/',(req,res)=>{
+  res.send("<h1> hello world </h1>");     //send a response to show
+})
+
+app.post('/',(req,res)=>{
+  res.send("got a post request");     //send a response to show
+})
+
+app.put('/',(req,res)=>{
+  res.send("got a put request");     //send a response to show
+})
+
+app.post('/',(req,res)=>{
+  res.send("got a delete request");     //send a response to show
+})
+
+app.listen(port,()=>{
+  console.log(" app listning on port ${port}");
+})
+
+node index.js                 //run the app
+npm install --save-dev nodemon      //no need to refresh , install as development dependency
+
+"scripts":{ 
+  "start" : "nodemon index.js"    //remove  test and enter start in package.json to use nodemon , type npm start to run the express app with nodemon
+}
+
+npm i body-parser --save npm         //to post requests,to read the body should externally download
+
+const bodyparser = require("body-parser");           //can use in the whole app after puting this in the index.js
+app.use(bodyparser.json())
+app.use(bodyparser.urlencoded({extended : true}))
+
+app.use(express.json())  // can use experss instead of body-parser
+app.use(express.urlencoded({extended.true}))    
+
+npm i mongoose --save  //download mongoose 
+
+const mongoose = connect('mongodb://localhost:27017/usersdb')    //usersdb is the databse name
+
+
+npm i dotenv      // to create env files
+require("dotenv").config(); //to use invironmental variables in index.js file, but no nned to require
+
+npm i axios    //send http requests to the rest apis and handle responses.fetch data from an API, promise based(.then and .catch), automatic json transformation not like fetch api (response.data) ,provide clear error messages 
+
+
+npm i cors   //cross origin resources sharing, automatically block send data from one webpage to another one or  sharing from backend to the front end. for that we use cors middleware
+
+npm i moment // for adding time and dates
+
+
+
+
